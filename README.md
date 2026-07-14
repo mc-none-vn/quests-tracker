@@ -31,7 +31,9 @@ quests-tracker/
 │   └── a
 ├── src/                          ← Main folder
 │   ├── languages/                ← Language config
-│   │   └── sl
+│   │   ├── en-US.json
+│   │   ├── sl
+│   │   └── vi-VN.json
 │   ├── config.js
 │   ├── discord.js
 │   ├── embed.js
