@@ -11,26 +11,25 @@ if (!SIGN_KEY) {
     process.exit(1);
 }
 
-let privateKey;
-try {
+let privateKey; try {
     privateKey = crypto.createPrivateKey(SIGN_KEY);
 } catch (err) {
     console.error('❌  SIGN_KEY không hợp lệ:', err.message);
     process.exit(1);
 }
 
-const files    = collectFiles();
+const files = collectFiles();
 const fileHash = computeFileHash(files);
 
-const sigBuffer   = crypto.sign(null, fileHash, privateKey);
-const sigBase64   = sigBuffer.toString('base64');
+const sigBuffer = crypto.sign(null, fileHash, privateKey);
+const sigBase64 = sigBuffer.toString('base64');
 
 const signature = {
-    origin:     ORIGIN,
-    signed_at:  new Date().toISOString(),
+    origin: ORIGIN,
+    signed_at: new Date().toISOString(),
     file_count: files.length,
-    files:      files.map(f => f.relPath),
-    signature:  sigBase64,
+    files: files.map(f => f.relPath),
+    signature: sigBase64,
 };
 
 fs.writeFileSync(path.join(ROOT, 'signature.json'), JSON.stringify(signature, null, 2) + '\n', 'utf8');
