@@ -41,8 +41,7 @@ function buildRawLines(node, prefix = '') {
             const childLines = buildRawLines(child, nextPrefix);
             lines = lines.concat(childLines);
         }
-    });
-    return lines;
+    }); return lines;
 }
 
 function generateTreeStructure(tree) {
@@ -63,8 +62,7 @@ function generateTreeStructure(tree) {
         } else {
             result += `${line.fullLineText}\n`;
         }
-    });
-    return result;
+    }); return result;
 }
 
 
