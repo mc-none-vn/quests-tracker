@@ -9,12 +9,11 @@ if (!TOKEN || !WEBHOOK || !GITHUB_TOKEN || !REPOSITORY) {
 };
 
 const isValid = await verifyIntegrity({
-    repository:  REPOSITORY,
+    repository: REPOSITORY,
     githubToken: GITHUB_TOKEN,
-    webhook:     WEBHOOK,
-    errWebhook:  ERR_WEBHOOK,
-});
-if (!isValid) {
+    webhook: WEBHOOK,
+    errWebhook: ERR_WEBHOOK,
+}); if (!isValid) {
     error('Integrity check thất bại. Hệ thống bị ngắt.');
     process.exit(1);
 }
@@ -51,8 +50,7 @@ const getAttachments = async (path) => {
 async function main() {
     log('Đang kiểm tra quests...');
     const state = loadState();
-    let quests;
-    try {
+    let quests; try {
         quests = await fetchQuests();
     } catch (err) {
         error(`Fetch thất bại: ${err.message}`);
@@ -76,9 +74,8 @@ async function main() {
         });
         log('Đã sắp xếp thứ tự Quest: Cũ nhất sẽ được ưu tiên gửi trước.');
     }
-    if (newQuests.length === 0) {
-        log('Không có quest mới. Tiến hành dọn state hết hạn.');
-    } else {
+    if (newQuests.length === 0) log('Không có quest mới. Tiến hành dọn state hết hạn.');
+    else {
         log('Đang chuẩn bị tài nguyên hình ảnh từ GitHub...');
         let avatarWebhook = await getAttachments('quests.png');
         if (!avatarWebhook) avatarWebhook = await getAttachments('discord.webp');
@@ -108,8 +105,7 @@ async function main() {
                 error(`Gửi quest ${quest.id} thất bại: ${err.message}`);
                 await sendErrorNotice(`Quest ${quest.id}: ${err.message}`);
             }
-        }
-        saveState(state);
+        }; saveState(state);
     }
 
     log('Đang xử lý các quest hết hạn trong state.json...');
