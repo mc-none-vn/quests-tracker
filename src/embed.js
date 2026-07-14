@@ -2,7 +2,7 @@
 import { i18n } from './language.js';
 
 const formatDate = (isoString) => {
-    if (!isoString) return "";
+    if (!isoString) return '';
     const d = new Date(isoString);
     const timestamp = Math.floor(d.getTime() / 1000);
     // const day = String(d.getDate()).padStart(2, '0');
@@ -29,12 +29,8 @@ export async function buildQuestEmbed(content, quest, assets) {
     const embed = []; const subComponents = []; if (content) subComponents.push({ type: 10, content });
     const durationStr = `${formatDate(config.starts_at)} - ${formatDate(config.expires_at)}`;
     let videoUrl; const taskList = Object.values(config.task_config_v2?.tasks || {}).map(task => {
+        const taskName = task.type.toLowerCase().replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase());
         const minutes = task.target ? task.target / 60 : 0;
-        const taskName = task.type
-            .toLowerCase()
-            .replace(/_/g, ' ')
-            .replace(/^\w/, c => c.toUpperCase());
-
         try {
             for (const type of ['video', 'video_low_res', 'video_hls']) {
                 videoUrl = task.assets[type].url; if (videoUrl) break;
