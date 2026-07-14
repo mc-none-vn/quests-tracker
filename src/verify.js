@@ -52,19 +52,19 @@ export async function verifyIntegrity({ repository, githubToken, webhook, errWeb
     let sig; try {
         sig = JSON.parse(fs.readFileSync(SIG_FILE, 'utf8'));
     } catch {
-        await sendAlert('`signature.json` bị hỏng hoặc không đọc được JSON.\nHệ thống bị ngắt.', ctx);
+        await sendAlert('`signature.json` bị hỏng hoặc không đọc được JSON.\nHệ thống đã bị buộc dừng.', ctx);
         return false;
     }
 
     if (!sig.signature || !sig.origin || !sig.files) {
-        await sendAlert('`signature.json` thiếu trường bắt buộc.\nHệ thống bị ngắt.', ctx);
+        await sendAlert('`signature.json` thiếu trường bắt buộc.\nHệ thống đã bị buộc dừng.', ctx);
         return false;
     }
 
     if (repository && githubToken) {
         const lineage = await checkLineage(repository, githubToken, sig.origin);
         if (lineage === 'invalid') {
-            await sendAlert(`**Phát hiện sao chép trái phép!**\n\nRepository \`${repository}\` không phải bản gốc cũng không phải fork hợp lệ của \`${sig.origin}\`.\n\nVui lòng **fork** từ <https://github.com/${sig.origin}> thay vì tải về rồi upload lại.\nHệ thống đã bị ngắt.`, ctx);
+            await sendAlert(`**Phát hiện sao chép trái phép!**\n\nRepository \`${repository}\` không phải bản gốc cũng không phải fork hợp lệ của \`${sig.origin}\`.\n\nVui lòng **fork** từ <https://github.com/${sig.origin}> thay vì tải về rồi upload lại.\nHệ thống đã bị buộc dừng.`, ctx);
             return false;
         }
     }
@@ -77,12 +77,12 @@ export async function verifyIntegrity({ repository, githubToken, webhook, errWeb
         const pubKey = crypto.createPublicKey(PUBLIC_KEY);
         valid = crypto.verify(null, fileHash, pubKey, sigBuf);
     } catch (err) {
-        await sendAlert(`Lỗi khi xác minh chữ ký Ed25519: ${err.message}\nHệ thống bị ngắt.`, ctx);
+        await sendAlert(`Lỗi khi xác minh chữ ký Ed25519: ${err.message}\nHệ thống đã bị buộc dừng.`, ctx);
         return false;
     }
 
     if (!valid) {
-        await sendAlert(`**Phát hiện chỉnh sửa file trái phép!**\n\nChữ ký Ed25519 không hợp lệ. Một hoặc nhiều file trong \`.github/\`, \`assets/\`, \`src/\` đã bị **thay đổi mà chưa được ký lại**.\n\nNếu bạn vừa cập nhật code, hãy chạy workflow **🔐 Sign Repository** để ký lại.\nRepo gốc: <https://github.com/${sig.origin}>\nHệ thống đã bị ngắt.`, ctx);
+        await sendAlert(`**Phát hiện chỉnh sửa file trái phép!**\n\nChữ ký Ed25519 không hợp lệ. Một hoặc nhiều file trong \`.github/\`, \`assets/\`, \`src/\` đã bị **thay đổi mà chưa được ký lại**.\n\nNếu bạn vừa cập nhật code, hãy chạy workflow **🔐 Sign Repository** để ký lại.\nRepo gốc: <https://github.com/${sig.origin}>\nHệ thống đã bị buộc dừng.`, ctx);
         return false;
     }
 
