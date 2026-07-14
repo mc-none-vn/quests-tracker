@@ -1,7 +1,7 @@
 {
-  "origin": "mc-none-vn/discord-quests",
-  "signed_at": "2026-07-14T23:08:32.791Z",
-  "file_count": 26,
+  "origin": "mc-none-vn/quests-tracker",
+  "signed_at": "2026-07-14T23:09:59.839Z",
+  "file_count": 25,
   "files": [
     ".github/workflows/questsTracker.yml",
     ".github/workflows/setupData.yml",
@@ -18,7 +18,6 @@
     "src/integrity.js",
     "src/language.js",
     "src/languages/en-US.json",
-    "src/languages/sl",
     "src/languages/vi-VN.json",
     "src/logging.js",
     "src/main.js",
@@ -30,5 +29,5 @@
     "src/verify.js",
     "src/webhook.js"
   ],
-  "signature": "+lQNQcWaIG1LHvXSM7XIXOHS/6oNxW50pACsM/tGYGNeeCU5dwDdG3J7gnCXjRtJeHPtmUbR9+7r8jDnG3pkBw=="
+  "signature": "Zws0UPgEU6zVW2uVvO7MoB9dkclreimKCMkVS9GceZHl2FUx0fMtfGbwuB0zx5Vi8BFe0qvUCdefhI5YQTQsDA=="
 }
