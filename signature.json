@@ -1,6 +1,6 @@
 {
   "origin": "mc-none-vn/quests-tracker",
-  "signed_at": "2026-07-14T23:17:13.251Z",
+  "signed_at": "2026-07-14T23:18:48.895Z",
   "file_count": 25,
   "files": [
     ".github/workflows/questsTracker.yml",
@@ -29,5 +29,5 @@
     "src/verify.js",
     "src/webhook.js"
   ],
-  "signature": "RQWAfMxl64ir0rcJ3lvecVrCQszE2eUM5RGyCoGFD2CchYlZor2Ur2UH2dQ1D9E+XMtq6Kv7+455Kz5dwIjrAg=="
+  "signature": "gEkYiIOzzW9v180HlAM42TcU4JXoyOfp7ay1q3MIoKOdWzEf7Vp+k+SroKdrCpSHx264NJlO5a14qLixlz1GDA=="
 }
