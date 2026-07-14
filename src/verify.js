@@ -13,7 +13,7 @@ async function sendAlert(message, { webhook, errWebhook }) {
             description: message,
             color:       0xED4245,
             timestamp:   new Date().toISOString(),
-            footer:      { text: `discord-quests • Integrity Guard • ${ORIGIN}` },
+            footer:      { text: `quests-tracker • Integrity Guard • ${ORIGIN}` },
         }],
     });
 
@@ -29,7 +29,7 @@ async function sendAlert(message, { webhook, errWebhook }) {
 async function checkLineage(repository, githubToken, origin) {
     try {
         const res = await fetch(`https://api.github.com/repos/${repository}`, {
-            headers: { Authorization: `token ${githubToken}`, 'User-Agent': 'discord-quests-integrity' },
+            headers: { Authorization: `token ${githubToken}`, 'User-Agent': 'quests-tracker-integrity' },
         }); if (!res.ok) return 'unknown';
         const info = await res.json();
         if (info.full_name === origin) return 'original';
