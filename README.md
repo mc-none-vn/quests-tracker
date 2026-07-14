@@ -22,13 +22,11 @@ This repository uses **2 branches**:
 quests-tracker/
 ├── .github/                      ← GitHub Actions config
 │   └── workflows/
-│       ├── gw
 │       ├── questsTracker.yml
 │       ├── setupData.yml
 │       ├── sign.yml
 │       └── updateStructure.yml
 ├── assets/                       ← Assets folder
-│   ├── a
 │   ├── discord.png
 │   ├── discordQuests.png
 │   ├── empty.png
@@ -36,7 +34,6 @@ quests-tracker/
 ├── src/                          ← Main folder
 │   ├── languages/                ← Language config
 │   │   ├── en-US.json
-│   │   ├── sl
 │   │   └── vi-VN.json
 │   ├── config.js
 │   ├── discord.js
