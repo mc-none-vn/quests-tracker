@@ -15,13 +15,11 @@ export async function sendWebhook(url, payload, useComponentsV2 = false) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`Webhook ${res.status}: ${await res.text().catch(() => '')}`);
+    }); if (!res.ok) throw new Error(`Webhook ${res.status}: ${await res.text().catch(() => '')}`);
 }
 
 export async function sendErrorNotice(message) {
-    if (!ERR_WEBHOOK) return;
-    try {
+    if (!ERR_WEBHOOK) return; try {
         await sendWebhook(ERR_WEBHOOK, {
             embeds: [{
                 title: `❌ ${i18n.error_title}`,
