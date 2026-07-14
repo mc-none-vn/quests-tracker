@@ -1,0 +1,10 @@
+{
+    "START": "--- --- --- --- --- START - THIS - FILE --- --- --- --- ---",
+    ".github": "← GitHub Actions config",
+    "assets": "← Assets folder",
+    "src": "← Main folder",
+    "languages": "← Language config",
+    "main.js": "← Main script",
+    ".env.example": "← For local hosting",
+    "THE_END": "--- --- --- --- --- END - THIS - FILE --- --- --- --- ---"
+}
