@@ -1,14 +1,14 @@
 <div align="center">
 
-# <sub><img src="https://raw.githubusercontent.com/mc-none-vn/discord-quests-tracker/refs/heads/main/assets/quests.png" height="41"></sub> Discord Quests Tracker <sub><img src="https://raw.githubusercontent.com/mc-none-vn/discord-quests-tracker/refs/heads/main/assets/quests.png" height="41"></sub>
+# <sub><img src="https://raw.githubusercontent.com/mc-none-vn/quests-tracker/refs/heads/main/assets/quests.png" height="41"></sub> Discord Quests Tracker <sub><img src="https://raw.githubusercontent.com/mc-none-vn/quests-tracker/refs/heads/main/assets/quests.png" height="41"></sub>
 Automatically tracking Discord Quests then sending notifications to a webhook every 5 minutes only when **a new quest is found**.
 
 [![Node](https://img.shields.io/badge/Node-20+-blue)](https://nodejs.org/)
-[![License](https://img.shields.io/badge/License-AGPL-green)](https://github.com/mc-none-vn/discord-quests-tracker?tab=AGPL-3.0-1-ov-file)
+[![License](https://img.shields.io/badge/License-AGPL-green)](https://github.com/mc-none-vn/quests-tracker?tab=AGPL-3.0-1-ov-file)
 </div>
 
 > [!WARNING]
-> **discord-quests-tracker** is a Discord Quests tracker developed solely for personal educational and monitoring purposes. To fetch current quests, this project requires your Discord user token to access Discord's internal API. Please note that using user tokens or self-bots violates Discord's Terms of Service and **may result in your account being permanently banned**. Use this software entirely at your own risk.
+> **quests-tracker** is a Discord Quests tracker developed solely for personal educational and monitoring purposes. To fetch current quests, this project requires your Discord user token to access Discord's internal API. Please note that using user tokens or self-bots violates Discord's Terms of Service and **may result in your account being permanently banned**. Use this software entirely at your own risk.
 
 ---
 
@@ -19,22 +19,19 @@ This repository uses **2 branches**:
 
 <!-- START_METADATA_DISCORD_QUEST_TREE -->
 ```
-discord-quests-tracker/
+quests-tracker/
 ├── .github/                      ← GitHub Actions config
 │   └── workflows/
+│       ├── gw
 │       ├── questsTracker.yml
 │       ├── setupData.yml
 │       ├── sign.yml
 │       └── updateStructure.yml
 ├── assets/                       ← Assets folder
-│   ├── discord.png
-│   ├── discordQuests.png
-│   ├── empty.png
-│   └── quests.png
+│   └── a
 ├── src/                          ← Main folder
 │   ├── languages/                ← Language config
-│   │   ├── en-US.json
-│   │   └── vi-VN.json
+│   │   └── sl
 │   ├── config.js
 │   ├── discord.js
 │   ├── embed.js
@@ -94,7 +91,7 @@ Select **Discord Quest Tracker** workflow → Click **Run workflow** to start tr
 > [!TIP]
 > To clone only the source code without the data branch, use the **Shallow Clone** command:
 > ```bash
-> git clone --branch main --single-branch https://github.com/mc-none-vn/discord-quests-tracker.git
+> git clone --branch main --single-branch https://github.com/mc-none-vn/quests-tracker.git
 > ```
 
 ### 1. Install Dependencies
@@ -155,7 +152,7 @@ When no new quest is found → End quietly
 - **Forking this repo** won't cause git conflicts when pushing state updates.
 - Each fork has its own independent `state.json` history.
 
-You can view it at: [mc-none-vn/discord-quests-tracker/blob/data/state.json](https://github.com/mc-none-vn/discord-quests-tracker/blob/data/state.json)
+You can view it at: [mc-none-vn/quests-tracker/blob/data/state.json](https://github.com/mc-none-vn/quests-tracker/blob/data/state.json)
 - **Reset**: Clear `sent_ids` → The bot will resend all currently active quests.
 - **Delete 1 quest**: Remove a specific ID from `sent_ids` → The bot will resend only that quest.
 
