@@ -28,7 +28,11 @@ quests-tracker/
 │       ├── sign.yml
 │       └── updateStructure.yml
 ├── assets/                       ← Assets folder
-│   └── a
+│   ├── a
+│   ├── discord.png
+│   ├── discordQuests.png
+│   ├── empty.png
+│   └── quests.png
 ├── src/                          ← Main folder
 │   ├── languages/                ← Language config
 │   │   ├── en-US.json
