@@ -1,0 +1,97 @@
+name: 🎯 Discord Quest Tracker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quest-tracker
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🗂️ Setup data branch (state)
+        run: |
+          git config --global user.name "quest-tracker [bot]"
+          git config --global user.email "quest-tracker@users.noreply.github.com"
+
+          if git fetch origin data:refs/remotes/origin/data 2>/dev/null; then
+            git worktree add /tmp/data origin/data
+          else
+            echo "Branch data chưa tồn tại, đang khởi tạo..."
+            git worktree add --orphan -b data /tmp/data
+            echo '{"sent_ids":{},"last_check":null}' > /tmp/data/state.json
+          fi
+
+          echo "data worktree sẵn sàng tại /tmp/data"
+          cat /tmp/data/state.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🚀 Run Quest Tracker
+        run: |
+          END_TIME=$((SECONDS + 21000))
+          while [ $SECONDS -lt $END_TIME ]; do
+            START_LOOP=$SECONDS
+            echo "--- Khởi động chu kỳ fetch dữ liệu: $(date) ---"
+
+            cd /tmp/data
+            git fetch origin data 2>/dev/null && git reset --hard origin/data 2>/dev/null || true
+            cd $GITHUB_WORKSPACE
+
+            node src/main.js \
+              --token "${{ secrets.DISCORD_TOKEN }}" \
+              --webhook "${{ secrets.MAIN_WEBHOOK }}" \
+              --error-webhook "${{ secrets.ERROR_WEBHOOK }}" \
+              --github-token "${{ secrets.GITHUB_TOKEN }}" \
+              --ping-role "${{ vars.PING_ROLE_ID }}" \
+              --locale "${{ vars.LOCALE }}" \
+              --repository "${{ github.repository }}" \
+              --state-dir "/tmp/data" \
+            || echo "Something went wrong."
+
+            cd /tmp/data
+            git add state.json
+            if ! git diff --cached --quiet; then
+              echo "Phát hiện thay đổi, đang commit vào data..."
+              git commit -m "chore: update quest state [skip ci]"
+
+              for attempt in 1 2 3; do
+                if git push origin HEAD:data; then
+                  echo "Push thành công."
+                  break
+                fi
+                echo "Push thất bại (lần $attempt/3), thử lại..."
+                git fetch origin data && git rebase origin/data
+                sleep 5
+              done
+            else
+              echo "Không có thay đổi nào trong trạng thái Quest."
+            fi
+            cd $GITHUB_WORKSPACE
+
+            ELAPSED=$((SECONDS - START_LOOP))
+            SLEEP_TIME=$((300 - ELAPSED))
+            [ $SLEEP_TIME -le 0 ] && SLEEP_TIME=10
+            echo "Vòng lặp tốn ${ELAPSED}s. Nghỉ ${SLEEP_TIME}s..."
+            sleep $SLEEP_TIME
+          done
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

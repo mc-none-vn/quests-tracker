@@ -1,0 +1,42 @@
+name: 🔐 Sign Repository
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'assets/**'
+      - '.github/workflows/**'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🔐 Sign files
+        run: node src/sign.js
+        env:
+          SIGN_KEY: ${{ secrets.SIGN_KEY }}
+
+      - name: 💾 Commit signature
+        run: |
+          git config user.name  "quest-tracker [bot]"
+          git config user.email "quest-tracker@users.noreply.github.com"
+          git add signature.json
+          git diff --cached --quiet || git commit -m "chore: update signature [skip ci]"
+          git push

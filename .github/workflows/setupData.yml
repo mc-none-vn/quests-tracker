@@ -1,0 +1,36 @@
+name: 🚀 Setup data branch (chạy 1 lần)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🌿 Create orphan branch data
+        run: |
+          git config --global user.name "quest-tracker [bot]"
+          git config --global user.email "quest-tracker@users.noreply.github.com"
+
+          if git ls-remote --exit-code origin data 2>/dev/null; then
+            echo "⚠️ Branch data đã tồn tại, bỏ qua."
+            exit 0
+          fi
+
+          git checkout --orphan data
+          git rm -rf . --quiet
+
+          echo '{"sent_ids":{},"last_check":null}' > state.json
+          git add state.json
+          git commit -m "init: data state branch"
+          git push origin data
+
+          echo "✅ Branch data đã được tạo thành công!"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
