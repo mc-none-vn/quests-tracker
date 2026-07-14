@@ -13,7 +13,7 @@ async function sendAlert(message, { webhook, errWebhook }) {
             description: message,
             color: 0xED4245,
             timestamp: new Date().toISOString(),
-            footer: { text: `quests-tracker • Integrity Guard • ${ORIGIN}` },
+            footer: { text: `Integrity Guard • ${ORIGIN}` },
         }],
     });
 
