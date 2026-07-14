@@ -12,8 +12,7 @@ export function loadState() {
         }
     } catch (err) {
         warn(`Không đọc được state: ${err.message} — dùng state trống.`);
-    }
-    return { sent_ids: {}, last_check: null };
+    }; return { sent_ids: {}, last_check: null };
 }
 
 export function saveState(state) {
