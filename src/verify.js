@@ -9,18 +9,20 @@ async function sendAlert(message, { webhook, errWebhook }) {
     if (!url) { console.error('[INTEGRITY ALERT]', message); return; }
     const body = JSON.stringify({
         embeds: [{
-            title:       '🚨 Phát hiện hành vi trái phép!',
+            title: '🚨 Phát hiện hành vi trái phép!',
             description: message,
-            color:       0xED4245,
-            timestamp:   new Date().toISOString(),
-            footer:      { text: `quests-tracker • Integrity Guard • ${ORIGIN}` },
+            color: 0xED4245,
+            timestamp: new Date().toISOString(),
+            footer: { text: `quests-tracker • Integrity Guard • ${ORIGIN}` },
         }],
     });
 
     for (const target of [url, url !== webhook ? webhook : null].filter(Boolean)) {
         try {
             const res = await fetch(target, {
-                method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body,
             }); if (res.ok) return;
         } catch { /* continue */ }
     }; console.error('[INTEGRITY ALERT — webhook thất bại]', message);
