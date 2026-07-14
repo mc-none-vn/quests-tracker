@@ -17,8 +17,7 @@ function parseArgs() {
             result[key] = args[i + 1] ?? true;
             i++;
         }
-    }
-    return result;
+    }; return result;
 }
 
 const args = parseArgs();
