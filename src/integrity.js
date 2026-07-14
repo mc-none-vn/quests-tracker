@@ -6,7 +6,7 @@ import fs from 'fs';
 
 export const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.join(__dirname, '..');
-export const ORIGIN = 'mc-none-vn/discord-quests';
+export const ORIGIN = 'mc-none-vn/quests-tracker';
 
 export const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MCowBQYDK2VwAyEAClSe8EJf/+7yzEtfBx9AU5a+9GnbTOvJjaKt9fl8COQ=
