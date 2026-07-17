@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  track:
+  tracker:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Repository
