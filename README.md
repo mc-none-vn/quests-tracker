@@ -3,7 +3,7 @@
 # <sub><img src="https://raw.githubusercontent.com/mc-none-vn/quests-tracker/refs/heads/main/assets/quests.png" height="41"></sub> Discord Quests Tracker <sub><img src="https://raw.githubusercontent.com/mc-none-vn/quests-tracker/refs/heads/main/assets/quests.png" height="41"></sub>
 Automatically tracking Discord Quests then sending notifications to a webhook every 5 minutes only when **a new quest is found**.
 
-[![Node](https://img.shields.io/badge/Node-20+-blue)](https://nodejs.org/)
+[![Node](https://img.shields.io/badge/Node-20+-green)](https://nodejs.org/)
 [![AGPL License](https://img.shields.io/badge/License-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 </div>
 
